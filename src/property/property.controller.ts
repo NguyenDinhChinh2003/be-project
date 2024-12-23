@@ -17,7 +17,7 @@ interface Service {
 @Controller('property')
 export class PropertyController {
     propertyService: PropertyService;
-    constructor(propertyService: Service) {
+    constructor(propertyService: PropertyService) {
         this.propertyService = propertyService;
     }
 
