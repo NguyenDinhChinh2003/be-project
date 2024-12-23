@@ -1,6 +1,9 @@
+import { Injectable } from "@nestjs/common";
+
+@Injectable()
 export class PropertyService {
-    findAll() {}
-    findOne() {}
-    create () {}
-    update () {}
+    async findAll() {}
+    async findOne() {}
+    async create() {}
+    async update() {}
 }
