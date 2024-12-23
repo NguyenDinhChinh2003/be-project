@@ -3,25 +3,40 @@ import { CreatePropertyDto } from './dto/createProperty.dto';
 import { parseIdPipe } from './pipes/parseIdppipe';
 import { zodValidationPipe } from './pipes/zodValidationPipe';
 import { createPropertySchema, CreatePropertyZodDto } from './dto/createPropertyZod.dto';
+import { PropertyService } from './property.service';
+
+
+interface Service {
+    findAll(): any;
+    findOne(): any;
+    create(): any;
+    update(): any;
+    remove(): any;
+}
+
 @Controller('property')
 export class PropertyController {
-    @Get()
-    findAll() {
-        return 'This action returns all properties';
+    propertyService: PropertyService;
+    constructor(propertyService: Service) {
+        this.propertyService = propertyService;
     }
 
-    // @Get(':id')
-    // findOne(@Param('id', ParseIntPipe) id, @Query('sort', ParseBoolPipe) sort) {
-    //     return id;
-    // }
+
+    @Get()
+    findAll() {
+        return this.propertyService.findAll();
+    }
+
+    @Get(':id')
+    findOne(@Param('id', ParseIntPipe) id, @Query('sort', ParseBoolPipe) sort) {
+        return this.propertyService.findOne();
+    }
 
     @Post('create')
-    //   @UsePipes(new ValidationPipe({ whitelist: true, forbidNonWhitelisted: true }))
-
     @UsePipes(new zodValidationPipe(createPropertySchema))
     create(
         @Body() body: CreatePropertyZodDto) {
-        return body;
+        return this.propertyService.create();
     }
 
     @Patch(':id')
@@ -29,7 +44,7 @@ export class PropertyController {
         @Param("id", parseIdPipe) id,
         @Body() body: CreatePropertyDto
     ) {
-        return body;
+        return this.propertyService.update();
     }
 
     @Delete(':id')
