@@ -1,9 +1,12 @@
 import { Module, ValidationPipe } from '@nestjs/common';
+import { Property } from 'src/entities/property.entity';
 import { PropertyController } from './property.controller';
 import { APP_PIPE } from '@nestjs/core';
 import { PropertyService } from './property.service';
+import { TypeOrmModule } from '@nestjs/typeorm';
 
 @Module({
+  imports: [TypeOrmModule.forFeature([Property])],
   controllers: [PropertyController],
   providers: [
     {

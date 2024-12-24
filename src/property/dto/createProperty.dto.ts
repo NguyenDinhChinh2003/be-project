@@ -11,6 +11,6 @@ export class CreatePropertyDto {
     description: string;
 
     @IsInt({always: true})
-    @IsPositive({ message: 'Area must be a positive number' })
-    area: number;
+    @IsPositive({ message: 'Price must be a positive number' })
+    price: number;
 }

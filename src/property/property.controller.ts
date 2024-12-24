@@ -4,6 +4,7 @@ import { parseIdPipe } from './pipes/parseIdppipe';
 import { zodValidationPipe } from './pipes/zodValidationPipe';
 import { createPropertySchema, CreatePropertyZodDto } from './dto/createPropertyZod.dto';
 import { PropertyService } from './property.service';
+import { UpdatePropertyDto } from './dto/updateProperty.dto';
 
 
 interface Service {
@@ -28,27 +29,26 @@ export class PropertyController {
     }
 
     @Get(':id')
-    findOne(@Param('id', ParseIntPipe) id, @Query('sort', ParseBoolPipe) sort) {
-        return this.propertyService.findOne();
+    findOne(@Param('id', ParseIntPipe) id) {
+        return this.propertyService.findOne(id);
     }
 
     @Post('create')
     @UsePipes(new zodValidationPipe(createPropertySchema))
-    create(
-        @Body() body: CreatePropertyZodDto) {
-        return this.propertyService.create();
+    create(@Body() dto: CreatePropertyDto) {
+        return this.propertyService.create(dto);
     }
 
     @Patch(':id')
     update(
         @Param("id", parseIdPipe) id,
-        @Body() body: CreatePropertyDto
+        @Body() body: UpdatePropertyDto
     ) {
-        return this.propertyService.update();
+        return this.propertyService.update(id, body);
     }
 
     @Delete(':id')
-    remove(@Param('id') id: string) {
-        return id + ' ' + 'This action removes a property';
+    remove(@Param('id') id) {
+        return this.propertyService.delete(id);
     }
 }

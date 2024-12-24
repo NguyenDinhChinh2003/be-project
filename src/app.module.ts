@@ -5,10 +5,12 @@ import { PropertyModule } from './property/property.module';
 import { CatsController } from './cats/cats.controller';
 import { CatsService } from './cats/cats.service';
 import { CatsModule } from './cats/cats.module';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { pgConfig } from 'dbConfig';
 
 @Module({
-  imports: [PropertyModule, CatsModule],
-  controllers: [AppController, CatsController],
-  providers: [AppService, CatsService],
+  imports: [PropertyModule, TypeOrmModule.forRoot(pgConfig)],
+  controllers: [AppController],
+  providers: [AppService],
 })
 export class AppModule {}
