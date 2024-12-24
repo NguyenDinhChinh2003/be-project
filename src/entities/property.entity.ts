@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import { PropertyFeature } from "./propertyFeatue.entity";
 
 @Entity()
 
@@ -14,4 +15,7 @@ export class Property {
 
     @Column({ default: 0 })
     price: number;
+
+    @OneToOne(() => PropertyFeature,(PropertyFeature) => PropertyFeature.property)
+    propertyFeature: PropertyFeature;
 }
