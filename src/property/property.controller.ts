@@ -5,6 +5,7 @@ import { zodValidationPipe } from './pipes/zodValidationPipe';
 import { createPropertySchema, CreatePropertyZodDto } from './dto/createPropertyZod.dto';
 import { PropertyService } from './property.service';
 import { UpdatePropertyDto } from './dto/updateProperty.dto';
+import { PaginationDto } from './dto/pagianation.dto';
 
 
 interface Service {
@@ -24,8 +25,8 @@ export class PropertyController {
 
 
     @Get()
-    findAll() {
-        return this.propertyService.findAll();
+    findAll(@Query() paginationDto: PaginationDto) {
+        return this.propertyService.findAll(paginationDto);
     }
 
     @Get(':id')

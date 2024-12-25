@@ -1,10 +1,11 @@
-import { Injectable, NotFoundException } from "@nestjs/common";
+import { Injectable, NotFoundException, Query } from "@nestjs/common";
 import { Property } from "../entities/property.entity";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
 import { CreatePropertyDto } from "./dto/createProperty.dto";
-import { NotFoundError } from "rxjs";
 import { UpdatePropertyDto } from "./dto/updateProperty.dto";
+import { PaginationDto } from "./dto/pagianation.dto";
+import { DEFAULT_PAGE_SIZE } from "src/utils/constans";
 
 @Injectable()
 export class PropertyService {
@@ -14,8 +15,12 @@ export class PropertyService {
         private propertyRepo: Repository<Property>
     ) { }
 
-    async findAll() {
-
+    async findAll(@Query() paginatuionDto: PaginationDto) {
+        return await this.propertyRepo.find({
+            skip: paginatuionDto.skip,
+            take: paginatuionDto.limit ?? DEFAULT_PAGE_SIZE
+        }
+        );
     }
     async findOne(id: number) {
         const result = await this.propertyRepo.findOne({
