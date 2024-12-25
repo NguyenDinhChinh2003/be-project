@@ -7,6 +7,7 @@ import { CatsService } from './cats/cats.service';
 import { CatsModule } from './cats/cats.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
+import { UserModule } from './user/user.module';
 import dbConfig from './config/db.config';
 import dbConfigProduction from './config/db.config.production';
 
@@ -15,10 +16,12 @@ import dbConfigProduction from './config/db.config.production';
     isGlobal: true,
     expandVariables: true,
     load: [dbConfig],
-  }),PropertyModule, TypeOrmModule.forRootAsync({
+  }), 
+  PropertyModule, TypeOrmModule.forRootAsync({
     useFactory: process.env.NODE_DEV === "production" ? dbConfigProduction : dbConfig
-  })],
+  }), 
+  UserModule],
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule {}
+export class AppModule { }

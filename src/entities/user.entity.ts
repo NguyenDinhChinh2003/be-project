@@ -1,5 +1,6 @@
-import { Column, CreateDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, JoinColumn, ManyToMany, JoinTable } from "typeorm";
+import { Column, CreateDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, ManyToMany, JoinTable, BeforeInsert } from "typeorm";
 import { Property } from "./property.entity";
+import * as bcrypt from "bcrypt"
 
 @Entity()
 
@@ -16,6 +17,9 @@ export class User {
     @Column()
     email: string;
 
+    @Column({default: 123})
+    password: string;
+
     @Column()
     avatarUrl: string;
 
@@ -29,4 +33,9 @@ export class User {
     @ManyToMany(() => Property, (property) => property.likedBy)
     @JoinTable({name: "user_like_properties"})
     likedProperties: Property[];
+
+    @BeforeInsert()
+    async hashPassword(){
+        this.password = await bcrypt.hash(this.password, 10)
+    }
 }
