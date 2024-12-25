@@ -1,6 +1,7 @@
 import { Column, Entity, ManyToMany, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 import { PropertyFeature } from "./propertyFeatue.entity";
 import { User } from "./user.entity";
+import { PropertyType } from "./propertyType.entity";
 
 @Entity()
 
@@ -25,4 +26,7 @@ export class Property {
 
     @ManyToMany(() => User, (user) => user.likedProperties)
     likedBy: User[];
+
+    @ManyToOne(() => PropertyType)
+    type: PropertyType;
 }

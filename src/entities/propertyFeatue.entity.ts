@@ -27,9 +27,6 @@ export class PropertyFeature {
     @Column()
     hasBalcony: boolean;
 
-    @Column()
-    propertyId: number;
-
     @OneToOne(()=>Property, (property) => property.propertyFeature, {cascade: true})
     @JoinColumn()
     property: Property;
