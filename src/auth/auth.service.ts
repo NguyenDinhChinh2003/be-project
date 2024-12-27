@@ -20,7 +20,7 @@ export class AuthService {
     return { id: user.id };
   }
 
-  async login(userId: number) {
+  login(userId: number) {
     const payload: AuthJwtPayload = { sub: userId }
     return this.jwtService.sign(payload);
   }

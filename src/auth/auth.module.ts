@@ -8,7 +8,7 @@ import { User } from 'src/entities/user.entity';
 import { JwtModule } from '@nestjs/jwt';
 import jwtConfig from './config/jwt.config';
 import { ConfigModule } from '@nestjs/config';
-import { JwtAuthGuard } from './guards/jwt-auth/jwt-auth.guard';
+import { jwtStrategy } from './strategies/jwt.strategy';
 
 @Module({
   imports: [
@@ -17,6 +17,6 @@ import { JwtAuthGuard } from './guards/jwt-auth/jwt-auth.guard';
     ConfigModule.forFeature(jwtConfig),
   ],
   controllers: [AuthController],
-  providers: [AuthService, UserService, LocalStrategy, JwtAuthGuard],
+  providers: [AuthService, UserService, LocalStrategy, jwtStrategy],
 })
 export class AuthModule { }
