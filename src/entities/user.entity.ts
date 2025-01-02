@@ -17,6 +17,9 @@ export class User {
     @Column()
     email: string;
 
+    @Column()
+    hashedRefreshToken: string;
+
     @Column({default: 123})
     password: string;
 
